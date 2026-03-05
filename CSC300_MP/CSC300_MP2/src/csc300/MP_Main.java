@@ -30,7 +30,7 @@ public class MP_Main {
 		try {
 			BufferedImage img_buff = ImageIO.read(f);
 			Raster raster = img_buff.getData();
-			
+
 			int h = img_buff.getHeight();
 			int w = img_buff.getWidth();
 			int[] pixel = new int[3];
@@ -38,15 +38,14 @@ public class MP_Main {
 			for (int y = 0; y < h; y++) {
 				for (int x = 0; x < w; x++) {
 					raster.getPixel(x, y, pixel);
-					img_bool[y][x] = pixel[0] > 128;					 
+					img_bool[y][x] = pixel[0] > 128;
 				}
 			}
-			
 			return img_bool;
 		} catch (Exception e) {
 			System.out.println("Invalid image file");
 			return null;
-		}		
+		}
 	}
 	
 	/*
@@ -89,7 +88,8 @@ public class MP_Main {
 
 	public static void main(String[] args) {
 		// Given to you as the start point ..., but you can modify how to call these functions to your convenience
-		boolean[][] img = loadImage("img_00.png");
+		boolean[][] img = loadImage("CSC300_MP/img_00.png");
+
 		if (img == null){
 			System.out.println("Could not load the input image");
 			return;
