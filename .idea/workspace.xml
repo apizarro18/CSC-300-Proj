@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="af90cd94-d03a-470a-8c0f-8a5d9d83d24b" name="Changes" comment="Fixed version issues on my computer and made sure the path is pointing to the correct place for loading the image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,18 +20,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;apizarro18&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/apizarro18/CSC-300-Proj",
-    "accountId": "952788df-d8c8-4fb7-a5aa-0404b3b498ec"
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "assignee": "apizarro18"
+    }
+  ],
+  "lastFilter": {
+    "assignee": "apizarro18"
   }
 }]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/apizarro18/CSC-300-Proj&quot;,
+    &quot;accountId&quot;: &quot;952788df-d8c8-4fb7-a5aa-0404b3b498ec&quot;
+  }
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -55,7 +65,7 @@
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Paul/IdeaProjects/CSC-300-Proj/CSC300_MP/CSC300_MP2/src/csc300",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Facets",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
