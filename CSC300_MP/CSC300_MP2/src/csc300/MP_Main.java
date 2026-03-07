@@ -14,6 +14,8 @@ package csc300;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
@@ -66,17 +68,52 @@ public class MP_Main {
 		return buffer.toString();
 	}
 
-    public record Pair<T, U>(T first, U second) { }
+    public record Pair<T, U>(T first, U second) {
 
-    public static Pair img2UF(boolean [][] imgBoolean){
-        // Todo (Part 2): takes the boolean array of the image and generates a Union Find with elements on the same CC being connected.
-        return null;
+	}
+
+    public static Pair<QuickUnion, LinkedList<ArrayList<Integer>>> img2UF(boolean [][] imgBoolean){
+		// Todo (Part 2): takes the boolean array of the image and generates a Union Find with elements on the same CC being connected.
+        QuickUnion result_uf = new QuickUnion(imgBoolean.length * imgBoolean[0].length);
+		LinkedList<ArrayList<Integer>> result_list = new LinkedList<>();
+		int count = 0;
+
+		for (int row = 0; row < imgBoolean.length; row++) {
+			for (int col = 0; col < imgBoolean[0].length; col++) {
+				if (imgBoolean[row][col]) {
+					if (row >= 1 && imgBoolean[row - 1][col]) result_uf.union(count, count - imgBoolean[0].length);
+					if (col >= 1 && imgBoolean[row][col - 1]) {
+						result_uf.union(count, count - 1);
+						result_list.getLast().add(count);
+					} else {
+						result_list.add(new ArrayList<Integer>());
+						result_list.getLast().add(count);
+					}
+					if (col < imgBoolean[0].length - 1 && imgBoolean[row][col + 1]) result_uf.union(count, count + 1);
+					if (row < imgBoolean.length - 1 && imgBoolean[row + 1][col]) result_uf.union(count, count + imgBoolean[0].length);
+				}
+				count++;
+			}
+		}
+
+        return new Pair<>(result_uf, result_list);
     }
 
 
-    public static List<List> genCC(QuickUnion imgUF,  List<List> rawCC){
+    public static LinkedList<ArrayList<Integer>> genCC(QuickUnion imgUF,  LinkedList<ArrayList<Integer>> rawCC){
         // Todo (Part 2): take the generated ImgUF from function img2UF(), and output all CCs in the format of list of lists
-        return null;
+		int row = 0;
+		while (row < rawCC.size()) {
+			for (int i = row + 1; i < rawCC.size(); i++) {
+				if (imgUF.connected(rawCC.get(i).getFirst(), rawCC.get(row).getFirst())) {
+					rawCC.get(row).addAll(rawCC.get(i));
+					rawCC.remove(i);
+					i--;
+				}
+			}
+			row++;
+		}
+        return rawCC;
     }
 
     public static Pair<List<Integer>, List<Integer>> separateCC(int imgH, int imgW, List<List> CCs, double threshold){
@@ -88,7 +125,7 @@ public class MP_Main {
 
 	public static void main(String[] args) {
 		// Given to you as the start point ..., but you can modify how to call these functions to your convenience
-		boolean[][] img = loadImage("CSC300_MP/img_00.png");
+		boolean[][] img = loadImage("CSC300_MP/check1.png");
 
 		if (img == null){
 			System.out.println("Could not load the input image");
@@ -97,8 +134,11 @@ public class MP_Main {
 		if (img.length <= 100) {
 			System.out.println(boolImgToString(img));
 		}
-		
-		
+
+		Pair<QuickUnion, LinkedList<ArrayList<Integer>>> uf_list = img2UF(img);
+
+		LinkedList<ArrayList<Integer>> cc_list = genCC(uf_list.first, uf_list.second);
+		System.out.println(cc_list);
 		// TODO (Part 5): Analyze One Image Mode
 
         // TODO (Part 5): Data Collection Mode
