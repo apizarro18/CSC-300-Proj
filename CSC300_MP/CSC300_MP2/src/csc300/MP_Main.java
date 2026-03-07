@@ -116,16 +116,35 @@ public class MP_Main {
         return rawCC;
     }
 
-    public static Pair<List<Integer>, List<Integer>> separateCC(int imgH, int imgW, List<List> CCs, double threshold){
+    public static Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> separateCC(int imgH, int imgW, LinkedList<ArrayList<Integer>> CCs, double threshold){
         // Todo (Part 3): take the CCs and img resolutions as input, and return two lists of integers
+		LinkedList<ArrayList<Integer>> rect = new LinkedList<ArrayList<Integer>>();
+		LinkedList<ArrayList<Integer>> tri = new LinkedList<ArrayList<Integer>>();
+		for(int cur_cc = 0; cur_cc < CCs.size(); cur_cc++) {
+			int max_x = 0;
+			int min_x = imgW;
+			int cur_x;
+			int min_y = (int) (CCs.get(cur_cc).getFirst() / imgW);
+			int max_y = (int) (CCs.get(cur_cc).getLast() / imgW);
+
+			for (int i = 0; i < CCs.get(cur_cc).size(); i++) {
+				cur_x = CCs.get(cur_cc).get(i) % imgW;
+				max_x = Math.max(cur_x, max_x);
+				min_x = Math.min(cur_x, min_x);
+			}
+			double ratio = CCs.get(cur_cc).size() / ((max_x - min_x + 1) * (max_y - min_y + 1) * 1.0);
+			if (ratio > threshold) rect.add(CCs.get(cur_cc));
+			else tri.add(CCs.get(cur_cc));
+			System.out.printf("min_x: %d, max_x: %d, min_y: %d, max_y: %d, ratio: %.3f%n", min_x, max_x, min_y, max_y, ratio);
+		}
+		return new Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>>(rect, tri);
         // the first list: list of indices (like the indices in the blue list in figure 3.b) of CCs that belongs to triangle
         // the second list: list of indices (like the indices in the blue list in figure 3.b) of CCs that belongs to rectangle
-        return null;
     }
 
 	public static void main(String[] args) {
 		// Given to you as the start point ..., but you can modify how to call these functions to your convenience
-		boolean[][] img = loadImage("CSC300_MP/check1.png");
+		boolean[][] img = loadImage("CSC300_MP/img_00.png");
 
 		if (img == null){
 			System.out.println("Could not load the input image");
@@ -139,6 +158,11 @@ public class MP_Main {
 
 		LinkedList<ArrayList<Integer>> cc_list = genCC(uf_list.first, uf_list.second);
 		System.out.println(cc_list);
+
+		Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> rect_tri = separateCC(img.length, img[0].length, cc_list, 0.75);
+
+		System.out.println(rect_tri.first.size());
+		System.out.println(rect_tri.second.size());
 		// TODO (Part 5): Analyze One Image Mode
 
         // TODO (Part 5): Data Collection Mode
