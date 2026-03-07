@@ -14,9 +14,13 @@ package csc300;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 
@@ -142,33 +146,152 @@ public class MP_Main {
         // the second list: list of indices (like the indices in the blue list in figure 3.b) of CCs that belongs to rectangle
     }
 
-	public static void main(String[] args) {
-		// Given to you as the start point ..., but you can modify how to call these functions to your convenience
-		boolean[][] img = loadImage("CSC300_MP/img_00.png");
 
-		if (img == null){
-			System.out.println("Could not load the input image");
-			return;
-		}
-		if (img.length <= 100) {
+	public static Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> processSingleImage(boolean[][] img, boolean silent){
+		if(!silent && img.length <= 100){
 			System.out.println(boolImgToString(img));
 		}
 
-		Pair<QuickUnion, LinkedList<ArrayList<Integer>>> uf_list = img2UF(img);
+		//img2UF
+		long startTime = System.nanoTime();
+		Pair<QuickUnion, LinkedList<ArrayList<Integer>>> imgProcessPair = img2UF(img);
+		long endTime = System.nanoTime();
+		if(!silent){
+			System.out.printf("Time img2UF: %.6f seconds \n", (endTime - startTime) / 1_000_000_000.0);
+		}
 
-		LinkedList<ArrayList<Integer>> cc_list = genCC(uf_list.first, uf_list.second);
-		System.out.println(cc_list);
+		//genCC
+		startTime = System.nanoTime();
+		LinkedList<ArrayList<Integer>> ccList = genCC(imgProcessPair.first(), imgProcessPair.second());
+		endTime = System.nanoTime();
+		if(!silent){
+			System.out.println("Total CCs: " + ccList.size());
+			System.out.printf("Time genCC: %.6f seconds \n", (endTime - startTime) / 1_000_000_000.0);
+		}
 
-		Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> rect_tri = separateCC(img.length, img[0].length, cc_list, 0.75);
+		//separateCC
+		double threshold = 0.75;
+		Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> shapes = separateCC(img.length, img[0].length, ccList, threshold);
+		if(!silent){
+			System.out.println("Rectangles: " + shapes.first().size());
+			System.out.println("Triangles: " + shapes.second().size());
+		}
+		return shapes;
+	}
 
-		System.out.println(rect_tri.first.size());
-		System.out.println(rect_tri.second.size());
+	public static boolean[][] readImage(Scanner scanner){
+		while(true){
+			System.out.println("Please enter the path of the image: ");
+			String userInput = scanner.nextLine();
+			boolean[][] img = loadImage(userInput);
+
+			if(img == null){
+				System.out.println("Could not read image! Make sure it is a valid PNG");
+				continue;
+			}
+			return img;
+		}
+	}
+
+	public static Path readDirectory(Scanner scanner){
+		while(true){
+			System.out.println("Please enter the file directory path: ");
+			String userInput = scanner.nextLine();
+			Path path = Paths.get(userInput);
+
+			if(Files.exists(path) && Files.isDirectory(path)){
+				return path;
+			}
+			else{
+				System.out.println("Error! Path is invalid or not a directory.");
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		// Given to you as the start point ..., but you can modify how to call these functions to your convenience
+		Scanner scanner = new Scanner(System.in);
+		boolean running = true;
+
+		while (running){
+			System.out.println("Welcome to Image Analyzer! Please choose an option from the menu:");
+			System.out.println("1. Analyze One Image");
+			System.out.println("2. Data Collection");
+			System.out.println("3. Quit");
+			if (!scanner.hasNextInt()){
+				System.out.println("Please enter a number!");
+				continue;
+			}
+			int userChoice = scanner.nextInt();
+			scanner.nextLine();
+			switch(userChoice){
+
+				//Analyze 1 image
+				case 1:
+					boolean[][] singleImg = readImage(scanner);
+					processSingleImage(singleImg, false);
+					break;
+
+				//Data Collection
+				case 2:
+					Path imgDirectory = readDirectory(scanner);
+					File folder = imgDirectory.toFile();
+					File[] files =  folder.listFiles();
+
+					if(files == null || files.length == 0){
+						System.out.println("No files found in the directory.");
+						break;
+					}
+
+					System.out.println("Filename | Avg CCA Time | Rectangles | Triangles");
+					System.out.println("-------------------------------------------------");
+
+					for(int i = 0; i< files.length; i++){
+						if(files[i].isFile() && files[i].getName().endsWith(".png")){
+							boolean[][] currentImg = loadImage(files[i].getAbsolutePath());
+							if(currentImg == null){
+								continue;
+							}
+
+							long totalNanoTime = 0;
+
+							//Analysis runs 5x!
+							for(int j=0; j<5; j++){
+								long startTime = System.nanoTime();
+
+								Pair<QuickUnion, LinkedList<ArrayList<Integer>>> pair = img2UF(currentImg);
+								genCC(pair.first(), pair.second());
+								long endTime = System.nanoTime();
+								totalNanoTime += (endTime - startTime);
+							}
+
+							//Calc average for the current image. (I like to convert to seconds for ease of viewing)
+							double avgTime = (totalNanoTime/5.0) / 1_000_000_000.0;
+							Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> resultShapes = processSingleImage(currentImg, true);
+
+							System.out.printf("%s | %.6f seconds | Rectangles: %d | Triangles: %d\n",
+									files[i].getName(), avgTime, resultShapes.first().size(), resultShapes.second().size());
+
+						}
+					}
+					System.out.println("Data Collection Complete!");
+					break;
+
+				//Quit
+				case 3:
+					System.out.println("Terminating program.");
+					running = false;
+					break;
+
+				default:
+					throw new RuntimeException("You must choose from one of the three options!");
+			}
+		}
+
 		// TODO (Part 5): Analyze One Image Mode
 
         // TODO (Part 5): Data Collection Mode
-        File f = new File(".");
-        File [] files = f.listFiles();
-		
+
 	}
 
 }
