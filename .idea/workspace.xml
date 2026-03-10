@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af90cd94-d03a-470a-8c0f-8a5d9d83d24b" name="Changes" comment="Fixed version issues on my computer and made sure the path is pointing to the correct place for loading the image">
+    <list default="true" id="1ec9dd03-2d8a-4a09-ab4e-7f9e5f36be84" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main$Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main$Pair.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" afterDir="false" />
-=======
->>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,66 +18,45 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
-    {
-      "assignee": "apizarro18"
-    }
-  ],
-  "lastFilter": {
-    "assignee": "apizarro18"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;apizarro18&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/apizarro18/CSC-300-Proj&quot;,
-    &quot;accountId&quot;: &quot;952788df-d8c8-4fb7-a5aa-0404b3b498ec&quot;
+    &quot;url&quot;: &quot;https://github.com/apizarro18/CSC-300-Proj.git&quot;,
+    &quot;accountId&quot;: &quot;936be175-7d4e-4504-a63a-30977345cc54&quot;
   }
 }</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="3AXXZFdelsKs4trntM2ipLFYKtK" />
+  <component name="ProjectId" id="3AjS2U930W7YIs8LnJ5UgWhYaZ2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MP_Main.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Paul/IdeaProjects/CSC-300-Proj/CSC300_MP/CSC300_MP2/src/csc300",
-    "project.structure.last.edited": "Facets",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MP_Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;cli-menu&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Paul\IdeaProjects\CSC-300-Proj\CSC300_MP\CSC300_MP2\src\csc300" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Pizar\IdeaProjects\CSC-300-Proj" />
-    </key>
-  </component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -89,33 +66,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="af90cd94-d03a-470a-8c0f-8a5d9d83d24b" name="Changes" comment="" />
-      <created>1772739942841</created>
+      <changelist id="1ec9dd03-2d8a-4a09-ab4e-7f9e5f36be84" name="Changes" comment="" />
+      <created>1773104280601</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1772739942841</updated>
+      <updated>1773104280601</updated>
     </task>
-    <task id="LOCAL-00001" summary="Fixed version issues on my computer and made sure the path is pointing to the correct place for loading the image">
-      <option name="closed" value="true" />
-      <created>1772748154513</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1772748154513</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Fixed version issues on my computer and made sure the path is pointing to the correct place for loading the image">
-      <option name="closed" value="true" />
-      <created>1772911427613</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1772911427613</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed version issues on my computer and made sure the path is pointing to the correct place for loading the image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed version issues on my computer and made sure the path is pointing to the correct place for loading the image" />
   </component>
 </project>
