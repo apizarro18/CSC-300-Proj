@@ -14,6 +14,10 @@ package csc300;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -208,6 +212,16 @@ public class MP_Main {
 		}
 	}
 
+	public static void writeResultsToCSV(String content){
+		try(PrintWriter writer = new PrintWriter(new File("Analysis_Results.csv"))){
+			writer.write(content);
+			System.out.println("\n CSV file 'Analysis_Results.csv' has been created successfully!");
+		} catch (FileNotFoundException e){
+			System.out.println("Error creating CSV: " + e.getMessage());
+		}
+	}
+
+
 	public static void main(String[] args) {
 		// Given to you as the start point ..., but you can modify how to call these functions to your convenience
 		Scanner scanner = new Scanner(System.in);
@@ -220,6 +234,7 @@ public class MP_Main {
 			System.out.println("3. Quit");
 			if (!scanner.hasNextInt()){
 				System.out.println("Please enter a number!");
+				scanner.nextLine();
 				continue;
 			}
 			int userChoice = scanner.nextInt();
@@ -242,6 +257,11 @@ public class MP_Main {
 						System.out.println("No files found in the directory.");
 						break;
 					}
+
+					//Added functionality to save data in csv file.
+					StringBuilder csvData = new StringBuilder();
+					csvData.append("Filename,Avg CCA Time(s),Rectangles,Triangles,Total Shapes\n");
+
 
 					System.out.println("Filename | Avg CCA Time | Rectangles | Triangles");
 					System.out.println("-------------------------------------------------");
@@ -269,11 +289,18 @@ public class MP_Main {
 							double avgTime = (totalNanoTime/5.0) / 1_000_000_000.0;
 							Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> resultShapes = processSingleImage(currentImg, true);
 
-							System.out.printf("%s | %.6f seconds | Rectangles: %d | Triangles: %d\n",
-									files[i].getName(), avgTime, resultShapes.first().size(), resultShapes.second().size());
+							int rects = resultShapes.first().size();
+							int tris = resultShapes.second().size();
 
+							System.out.printf("%s | %.6f seconds | Rectangles: %d | Triangles: %d\n",
+									files[i].getName(), avgTime,rects, tris);
+
+							//Append to CSV file
+							csvData.append(String.format("%s,%.6f,%d,%d,%d\n",
+									files[i].getName(), avgTime, rects, tris, (rects+tris)));
 						}
 					}
+					writeResultsToCSV(csvData.toString());
 					System.out.println("Data Collection Complete!");
 					break;
 
