@@ -251,57 +251,56 @@ public class MP_Main {
 				case 2:
 					Path imgDirectory = readDirectory(scanner);
 					File folder = imgDirectory.toFile();
-					File[] files =  folder.listFiles();
+					File[] files = folder.listFiles();
 
-					if(files == null || files.length == 0){
+					if (files == null || files.length == 0) {
 						System.out.println("No files found in the directory.");
 						break;
 					}
 
-					//Added functionality to save data in csv file.
+					// Add Resolution column to the header
+					System.out.println("Res | Filename | Avg CCA Time | Rect | Tri | Total");
+					System.out.println("-----------------------------------------------------");
+
 					StringBuilder csvData = new StringBuilder();
-					csvData.append("Filename,Avg CCA Time(s),Rectangles,Triangles,Total Shapes\n");
+					csvData.append("Filename,Resolution,AvgTime,Rects,Tris,Total\n");
 
-
-					System.out.println("Filename | Avg CCA Time | Rectangles | Triangles");
-					System.out.println("-------------------------------------------------");
-
-					for(int i = 0; i< files.length; i++){
-						if(files[i].isFile() && files[i].getName().endsWith(".png")){
+					for (int i = 0; i < files.length; i++) {
+						if (files[i].isFile() && files[i].getName().endsWith(".png")) {
 							boolean[][] currentImg = loadImage(files[i].getAbsolutePath());
-							if(currentImg == null){
-								continue;
-							}
+							if (currentImg == null) continue;
+
+							//Get resolution
+							int h = currentImg.length;
+							int w = currentImg[0].length;
+							int res = h * w;
 
 							long totalNanoTime = 0;
-
-							//Analysis runs 5x!
-							for(int j=0; j<5; j++){
+							for (int j = 0; j < 5; j++) {
 								long startTime = System.nanoTime();
-
 								Pair<QuickUnion, LinkedList<ArrayList<Integer>>> pair = img2UF(currentImg);
 								genCC(pair.first(), pair.second());
 								long endTime = System.nanoTime();
 								totalNanoTime += (endTime - startTime);
 							}
 
-							//Calc average for the current image. (I like to convert to seconds for ease of viewing)
-							double avgTime = (totalNanoTime/5.0) / 1_000_000_000.0;
+							double avgTime = (totalNanoTime / 5.0) / 1_000_000_000.0;
 							Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> resultShapes = processSingleImage(currentImg, true);
 
-							int rects = resultShapes.first().size();
-							int tris = resultShapes.second().size();
+							int rCount = resultShapes.first().size();
+							int tCount = resultShapes.second().size();
 
-							System.out.printf("%s | %.6f seconds | Rectangles: %d | Triangles: %d\n",
-									files[i].getName(), avgTime,rects, tris);
+							// Print with Resolution
+							System.out.printf("%d | %s | %.6f s | %d | %d | %d\n",
+									res, files[i].getName(), avgTime, rCount, tCount, (rCount + tCount));
 
-							//Append to CSV file
-							csvData.append(String.format("%s,%.6f,%d,%d,%d\n",
-									files[i].getName(), avgTime, rects, tris, (rects+tris)));
+							// CSV now includes Resolution
+							csvData.append(String.format("%s,%d,%.6f,%d,%d,%d\n",
+									files[i].getName(), res, avgTime, rCount, tCount, (rCount + tCount)));
 						}
 					}
-					writeResultsToCSV(csvData.toString());
 					System.out.println("Data Collection Complete!");
+					writeResultsToCSV(csvData.toString());
 					break;
 
 				//Quit
@@ -314,11 +313,6 @@ public class MP_Main {
 					throw new RuntimeException("You must choose from one of the three options!");
 			}
 		}
-
-		// TODO (Part 5): Analyze One Image Mode
-
-        // TODO (Part 5): Data Collection Mode
-
 	}
 
 }
