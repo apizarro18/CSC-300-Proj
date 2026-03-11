@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="db39388f-c83d-4327-b651-ba67d2616f1d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Analysis_Results.csv" afterDir="false" />
+    <list default="true" id="1ec9dd03-2d8a-4a09-ab4e-7f9e5f36be84" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analysis_Results.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Analysis_Results.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main$Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main$Pair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,32 +20,43 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;paulmurphyy&quot;
+    &quot;assignee&quot;: &quot;apizarro18&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/apizarro18/CSC-300-Proj&quot;,
-    &quot;accountId&quot;: &quot;952788df-d8c8-4fb7-a5aa-0404b3b498ec&quot;
+    &quot;url&quot;: &quot;https://github.com/apizarro18/CSC-300-Proj.git&quot;,
+    &quot;accountId&quot;: &quot;bdae4ce8-62a7-4921-b569-4472fdfff2ca&quot;
   }
 }</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="3AiX5uNq1YqhVUyLiUojrYo7RCz" />
+  <component name="ProjectId" id="3AjS2U930W7YIs8LnJ5UgWhYaZ2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MP_Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging main",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MP_Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -54,11 +66,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="db39388f-c83d-4327-b651-ba67d2616f1d" name="Changes" comment="" />
-      <created>1773076186114</created>
+      <changelist id="1ec9dd03-2d8a-4a09-ab4e-7f9e5f36be84" name="Changes" comment="" />
+      <created>1773104280601</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1773076186114</updated>
+      <updated>1773104280601</updated>
     </task>
     <servers />
   </component>
