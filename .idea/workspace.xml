@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db39388f-c83d-4327-b651-ba67d2616f1d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Analysis_Results.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSC300_MP/CSC300_MP2/src/csc300/MP_Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main$Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main$Pair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSC-300-Proj/csc300/MP_Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,21 +16,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "paulmurphyy"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;paulmurphyy&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/apizarro18/CSC-300-Proj",
-    "accountId": "952788df-d8c8-4fb7-a5aa-0404b3b498ec"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/apizarro18/CSC-300-Proj&quot;,
+    &quot;accountId&quot;: &quot;952788df-d8c8-4fb7-a5aa-0404b3b498ec&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="3AiX5uNq1YqhVUyLiUojrYo7RCz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -38,7 +41,7 @@
     "Application.MP_Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>

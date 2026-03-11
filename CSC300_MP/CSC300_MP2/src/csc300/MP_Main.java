@@ -14,10 +14,17 @@ package csc300;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 
@@ -136,7 +143,7 @@ public class MP_Main {
 			double ratio = CCs.get(cur_cc).size() / ((max_x - min_x + 1) * (max_y - min_y + 1) * 1.0);
 			if (ratio > threshold) rect.add(CCs.get(cur_cc));
 			else tri.add(CCs.get(cur_cc));
-//			System.out.printf("min_x: %d, max_x: %d, min_y: %d, max_y: %d, ratio: %.3f%n", min_x, max_x, min_y, max_y, ratio);
+			System.out.printf("min_x: %d, max_x: %d, min_y: %d, max_y: %d, ratio: %.3f%n", min_x, max_x, min_y, max_y, ratio);
 		}
 		return new Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>>(rect, tri);
         // the first list: list of indices (like the indices in the blue list in figure 3.b) of CCs that belongs to triangle
@@ -171,9 +178,7 @@ public class MP_Main {
 		Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> shapes = separateCC(img.length, img[0].length, ccList, threshold);
 		if(!silent){
 			System.out.println("Rectangles: " + shapes.first().size());
-			System.out.printf("Rectangles list: %s%n", shapes.first);
 			System.out.println("Triangles: " + shapes.second().size());
-			System.out.printf("Triangles list: %s%n", shapes.second);
 		}
 		return shapes;
 	}
@@ -207,6 +212,16 @@ public class MP_Main {
 		}
 	}
 
+	public static void writeResultsToCSV(String content){
+		try(PrintWriter writer = new PrintWriter(new File("Analysis_Results.csv"))){
+			writer.write(content);
+			System.out.println("\n CSV file 'Analysis_Results.csv' has been created successfully!");
+		} catch (FileNotFoundException e){
+			System.out.println("Error creating CSV: " + e.getMessage());
+		}
+	}
+
+
 	public static void main(String[] args) {
 		// Given to you as the start point ..., but you can modify how to call these functions to your convenience
 		Scanner scanner = new Scanner(System.in);
@@ -219,6 +234,7 @@ public class MP_Main {
 			System.out.println("3. Quit");
 			if (!scanner.hasNextInt()){
 				System.out.println("Please enter a number!");
+				scanner.nextLine();
 				continue;
 			}
 			int userChoice = scanner.nextInt();
@@ -242,8 +258,10 @@ public class MP_Main {
 						break;
 					}
 
-					HashMap<Integer, ArrayList<Double>> resolution_dict = new HashMap<>();
-					HashMap<Integer, ArrayList<Double>> cc_dict = new HashMap<>();
+					//Added functionality to save data in csv file.
+					StringBuilder csvData = new StringBuilder();
+					csvData.append("Filename,Avg CCA Time(s),Rectangles,Triangles,Total Shapes\n");
+
 
 					System.out.println("Filename | Avg CCA Time | Rectangles | Triangles");
 					System.out.println("-------------------------------------------------");
@@ -258,78 +276,31 @@ public class MP_Main {
 							long totalNanoTime = 0;
 
 							//Analysis runs 5x!
-							LinkedList<ArrayList<Integer>> cc_list = new LinkedList<>();
 							for(int j=0; j<5; j++){
 								long startTime = System.nanoTime();
 
 								Pair<QuickUnion, LinkedList<ArrayList<Integer>>> pair = img2UF(currentImg);
-								cc_list = genCC(pair.first(), pair.second());
+								genCC(pair.first(), pair.second());
 								long endTime = System.nanoTime();
 								totalNanoTime += (endTime - startTime);
 							}
 
 							//Calc average for the current image. (I like to convert to seconds for ease of viewing)
 							double avgTime = (totalNanoTime/5.0) / 1_000_000_000.0;
+							Pair<LinkedList<ArrayList<Integer>>, LinkedList<ArrayList<Integer>>> resultShapes = processSingleImage(currentImg, true);
 
-							if (resolution_dict.get(currentImg.length * currentImg[0].length) == null) resolution_dict.put(currentImg.length * currentImg[0].length, new ArrayList<Double>());
-							resolution_dict.get(currentImg.length * currentImg[0].length).add(avgTime);
-							if (cc_dict.get(cc_list.size()) == null) cc_dict.put(cc_list.size(), new ArrayList<Double>());
-							cc_dict.get(cc_list.size()).add(avgTime);
+							int rects = resultShapes.first().size();
+							int tris = resultShapes.second().size();
 
-							System.out.printf("%s | %.6f seconds | CCs: %d | Pixels in image: %d \n",
-									files[i].getName(), avgTime, cc_list.size(), currentImg.length * currentImg[0].length);
+							System.out.printf("%s | %.6f seconds | Rectangles: %d | Triangles: %d\n",
+									files[i].getName(), avgTime,rects, tris);
 
+							//Append to CSV file
+							csvData.append(String.format("%s,%.6f,%d,%d,%d\n",
+									files[i].getName(), avgTime, rects, tris, (rects+tris)));
 						}
 					}
-
-					ArrayList<Integer> cc_keys = new ArrayList<Integer>(cc_dict.keySet());
-					for (int i = 0; i < cc_keys.size(); i++) {
-						ArrayList<Double> cur_list = cc_dict.get(cc_keys.get(i));
-						if (cur_list == null || cur_list.isEmpty()) continue;
-
-						// 1. Min, Max, Avg in one pass
-						DoubleSummaryStatistics stats = cur_list.stream()
-								.mapToDouble(Double::doubleValue)
-								.summaryStatistics();
-
-						// 2. Median (requires sorting)
-						Collections.sort(cur_list);
-						double median;
-						int size = cur_list.size();
-						if (size % 2 == 0) {
-							median = (cur_list.get(size / 2 - 1) + cur_list.get(size / 2)) / 2.0;
-						} else {
-							median = cur_list.get(size / 2);
-						}
-
-						System.out.printf("CCs: %d | min: %f | max: %f | average: %f | median: %f %n",
-								cc_keys.get(i), stats.getMin(), stats.getMax(), stats.getAverage(), median);
-					}
-
-					ArrayList<Integer> resolution_keys = new ArrayList<Integer>(resolution_dict.keySet());
-					for (int i = 0; i < resolution_keys.size(); i++) {
-						ArrayList<Double> cur_list = resolution_dict.get(resolution_keys.get(i));
-						if (cur_list == null || cur_list.isEmpty()) continue;
-
-						// 1. Min, Max, Avg in one pass
-						DoubleSummaryStatistics stats = cur_list.stream()
-								.mapToDouble(Double::doubleValue)
-								.summaryStatistics();
-
-						// 2. Median (requires sorting)
-						Collections.sort(cur_list);
-						double median;
-						int size = cur_list.size();
-						if (size % 2 == 0) {
-							median = (cur_list.get(size / 2 - 1) + cur_list.get(size / 2)) / 2.0;
-						} else {
-							median = cur_list.get(size / 2);
-						}
-
-						System.out.printf("Resolution: %d | min: %f | max: %f | average: %f | median: %f %n",
-								resolution_keys.get(i), stats.getMin(), stats.getMax(), stats.getAverage(), median);
-					}
-
+					writeResultsToCSV(csvData.toString());
 					System.out.println("Data Collection Complete!");
 					break;
 
